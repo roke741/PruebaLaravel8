@@ -46,7 +46,7 @@ class PagesController extends Controller
 
     public function fnLista(){
         $xAlumnos = Estudiante1::all();
-        return view('PagLista', compact('xAlumnos'));
+        return view('pagLista', compact('xAlumnos'));
     }
 
     public function fnGaleria($numero=0){
