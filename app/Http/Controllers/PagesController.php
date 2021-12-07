@@ -16,6 +16,36 @@ class PagesController extends Controller
         return view('Estudiante.pagDetalle', compact('xDetAlumnos'));
     }
 
+    public function fnEstActualizar($id){
+        $xActAlumnos = Estudiante1::findOrFail($id);
+        return view('Estudiante.pagActualizar', compact('xActAlumnos'));
+    }
+
+    public function fnUpdate(Request $request, $id){
+
+        $xUpdateAlumnos = Estudiante1::findOrFail($id);
+
+        $xUpdateAlumnos->codEst = $request->codEst;
+        $xUpdateAlumnos->nomEst = $request->nomEst;
+        $xUpdateAlumnos->apeEst = $request->apeEst;
+        $xUpdateAlumnos->fnaEst = $request->fnaEst;
+        $xUpdateAlumnos->turMat = $request->turMat;
+        $xUpdateAlumnos->semMat = $request->semMat;
+        $xUpdateAlumnos->estMat = $request->estMat;
+
+        $xUpdateAlumnos->save();
+
+        return back()->with('msj', 'Se actualizo con exito!');
+    }
+
+    public function fnEliminar($id){
+        $xEliAlumnos = Estudiante1::findOrFail($id);   
+        $xEliAlumnos->delete();
+        return back()->with('msj', 'Se elimino con exito!');
+
+    }
+
+
     public function fnRegistrar(Request $request){
 
         $request -> validate([
@@ -45,7 +75,7 @@ class PagesController extends Controller
 
 
     public function fnLista(){
-        $xAlumnos = Estudiante1::all();
+        $xAlumnos = Estudiante1::paginate(4);
         return view('pagLista', compact('xAlumnos'));
     }
 

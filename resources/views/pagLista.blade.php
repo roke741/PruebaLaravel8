@@ -4,26 +4,20 @@
 @endsection
 
 @section('seccion')
-
     @if(session('msj'))
         <div class="alert alert-success">
-            {{session('msj')}}
-        </div>
+            {{session('msj')}} </div>
     @endif
-
     <form action="{{route('Estudiante.xRegistrar')}}" method="post" class="d-grid gap-2">
         @csrf
-
         @error('codEst')
             <div class="alert alert-danger">
-                El codigo es requerido
-            </div>
+                El codigo es requerido </div>
         @enderror
 
         @error('nomEst')
             <div class="alert alert-danger">
-                El nombre es requerido
-            </div>
+                El nombre es requerido</div>
         @enderror
 
         @if ($errors->has('apeEst'))
@@ -32,8 +26,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
             </div>
         @endif
-               
-
+        
         <input type="text" name="codEst" placeholder="Codigo" value="{{old('codEst')}}" class="form-control mb-2">
         <input type="text" name="nomEst" placeholder="Nombre" value="{{old('nomEst')}}" class="form-control mb-2">
         <input type="text" name="apeEst" placeholder="Apellido" value="{{old('apeEst')}}" class="form-control mb-2">
@@ -60,7 +53,6 @@
 
     <hr>
     <h3>Lista </h3>
-
     <table class="table">
     <thead class="table-dark">
         <tr>
@@ -70,27 +62,29 @@
             <th scope="col">Editar</th>
         </tr>
     </thead>
-
-    <tbody>
+    <tbody class="table-success">
     @foreach ($xAlumnos as $item)
-    <!-- <p> {{ $item->id }} - {{ $item->nomEst }} </p> -->
         <tr>
             <th scope="row">{{ $item->id }}</th>
             <td>{{ $item->codEst }}</td>
             <td>
                 <a href="{{ route('Estudiante.xDetalle', $item->id) }}">
-                {{ $item->apeEst }}, {{ $item->nomEst }}
-                </a>
+                {{ $item->apeEst }}, {{ $item->nomEst }}</a>
             </td>
             <td>
-                <a href="" class="btn btn-primary">Editar</a>
+                <form action="{{ route('Estudiante.xEliminar', $item->id) }}" method="post" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">X</button>
+                </form>
+                <a href="{{ route('Estudiante.xActualizar', $item->id) }}" class="btn btn-primary">Actualizar</a>
             </td>
         </tr>
     @endforeach
-            
     </tbody>
     </table>
-        
-
-
+    <!-- elementos centrados con bootstrap-->
+    <div class="d-flex justify-content-center">
+    {{ $xAlumnos->links() }}
+    </div>
 @endsection
