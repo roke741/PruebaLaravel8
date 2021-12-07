@@ -83,32 +83,32 @@
                     
                     <button type="submit" class="btn btn-danger">X</button>
                 </form-->
+                <!-- Modal Advertencia-->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fw-blod text-danger" id="staticBackdropLabel">ADVERTENCIA</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h5>¿Esta seguro de eliminar el registro?</h5>
+                                <form action="{{ route('Estudiante.xEliminar', $item->id) }}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <a href="{{ route('Estudiante.xActualizar', $item->id) }}" class="btn btn-primary">Actualizar</a>
             </td>
         </tr>
     @endforeach
     </tbody>
     </table>
-    <!-- Modal Advertencia-->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-blod text-danger" id="staticBackdropLabel">ADVERTENCIA</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h5>¿Esta seguro de eliminar el registro?</h5>
-                    <form action="{{ route('Estudiante.xEliminar', $item->id) }}" method="post" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- elementos centrados con bootstrap-->
     <div class="d-flex justify-content-center">
     {{ $xAlumnos->links() }}
